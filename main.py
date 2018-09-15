@@ -2,6 +2,7 @@
 #coding: utf-8
 
 import random  #importando o módulo para randomizar as letras
+import os #importando o módulo os para limpar o console
 
 #definindo a variável como lista para consoantes
 consoantes = [
@@ -9,51 +10,82 @@ consoantes = [
   'n', 'p', 'q', 'r', 's', 't', 'v', 'x', 'z'
   ]
  
-#definindo a variável como lista para consoantes
-vogais = ['a', 'e', 'i', 'o', 'u', 'y', 'w']
+#definindo a variável como lista para vogais
+vogais = ['a', 'e', 'i', 'o', 'u', 'w', 'y']
+
 
 # Introduz o usuário ao programa com saudação e explicações
 print('-' * 100)
 print('Bem vindo ao gerador de nomes aleatórios para seu personagem de RPG!\n'.center(100))
 print('A mecânica é simples.\n'.center(100))
 print('Você escolhe um número de consoantes e vogais e o programa cria o nome aleatoriamente para você.\n'.center(100))
-print('Caso não seja de seu agrado basta rodar novamente para criar um novo nome.\n'.center(100))
 print('Enjoy it!!!\n'.center(100))
 print('-' * 100)
-print('\n')
 
 #Criando função para receber o número de letras desejado para o nome
 def get_name():
   nome = [] #Criando lista vazia para receber as vogais e consoantes
-  num_consoantes = int(input('Digite o número de consoantes para o nome desejado: ')) 
-  num_vogais = int(input('Digite o número de vogais para o nome desejado: '))
-  for num in range(num_consoantes): # este for escolhe uma consoante aleatória de acordo com o número que o usuário escolheu e adiciona na lista
-    nome.append(random.choice(consoantes))
-  for num in range(num_vogais): # este for escolhe uma vogal aleatória de acordo com o número que o usuário escolheu e adiciona na lista
+  
+  while True:
+      try:
+          num_consoantes = int(input('\nDigite o número de consoantes para o nome desejado: '))
+      except ValueError:
+          print('\nVocê só pode digitar números inteiros para este campo.')
+      else:
+          break
+  while True:
+      try:
+          num_vogais = int(input('\nDigite o número de vogais para o nome desejado: '))
+      except ValueError:
+          print('\nVocê só pode digitar números inteiros para este campo.')
+      else:
+          break
+  
+  
+  #limpar o console
+  os.system("clear")
+  
+  # este for escolhe, aleatoriamente, uma quantidade de elementos da lista consoantes de acordo com o número que o usuário escolheu e adiciona na lista nome
+  for num in range(num_consoantes):
+      nome.append(random.choice(consoantes))
+  # este for escolhe, aleatoriamente, uma quantidade de elementos da lista vogais de acordo com o número que o usuário escolheu e adiciona na lista nome
+  for num in range(num_vogais):
     nome.append(random.choice(vogais))
-  random.shuffle(nome) # embaralhar aleatoriamente a lista
-  return print('\nO nome do seu personagem será: ', ''.join(nome).capitalize()) # converte lista em string unindo todos os elementos e deixando a primeira letra maiúscula
+  # embaralhar aleatoriamente a lista
+  random.shuffle(nome)
+  # converte lista em string unindo todos os elementos e deixando a primeira letra maiúscula
+  return print('\nO nome do seu personagem será: ',''.join(nome).capitalize())
 
-print(get_name()) #imprimindo o resultado na tela
+#Chama a função
+get_name()
 
 print('-' * 50)
 
 
 
+
+#Criar um laço perguntar ao usuário se ele quer escolher um novo nome
 while True:
-  choice = input('Deseja criar um novo nome? (S) para Sim - (N) para Não: ') #pergunta ao usuário se ele deseja criar outro nome
+  choice = input('\nDeseja criar um novo nome? (S) para Sim - (N) para Não: ')
+  
+  #limpar o console
+  os.system('clear')
+  
+  #Cria uma lista com strings para Sim ou Não
   lista_choice = ['S', 's', 'N', 'n']
 
+  #Este while valida a escolha do usuário para apenas os elementos de lista_choice
   while choice not in lista_choice:
-    choice = input('Escolha (S) para Sim ou (N) para Não: ')
+    choice = input('\nEscolha (S) para Sim ou (N) para Não: ')
+    os.system('clear') #limpar o console
   else:
     if (choice == 'S') or (choice == 's'):
-      print(get_name())
-      print('-' * 50)
+      get_name()
+      print('-' * 100)
     else:
-      print('-' * 50)
+      print('-' * 100)
       print('\nObrigado por usar o gerador de nomes aleatórios para RPG!\n')
       print('Espero que tenha sido de grande ajuda!\n')
       print('Até a próxima!\n')
-      print('-' * 50)
+      print('-' * 100)
       break
