@@ -1,3 +1,5 @@
+Rpg Random Names
+
 A simple program just to generate random names for RPG characters.
 
 The idea is to use a list of consonants and another list of vowels and the method random.choice to choose between the elements of the two lists, but first ask to the user to delimit the number of consonants and vowels he wants to the name.
